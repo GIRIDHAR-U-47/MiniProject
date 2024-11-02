@@ -1,0 +1,89 @@
+/* General styles */
+html, body {
+    display: grid;
+    height: 100%;
+    width: 100%;
+    place-items: center;
+    background: -webkit-linear-gradient(left, #003366, #004080, #0059b3, #0073e6);
+}
+
+/* Container styles */
+.container {
+    max-width: 900px;
+    padding: 20px;
+    background: #ffffff; /* White background for container */
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Header styles */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#logo {
+    max-width: 200px; /* Adjust width as needed */
+    height: auto; /* Maintain aspect ratio */
+    margin-bottom: 20px; /* Space below logo */
+}
+
+/* Heading styles */
+h1, h2, h3 {
+    color: #202124; /* Darker text for better readability */
+}
+
+/* Button styles */
+button {
+    background-color: #1a73e8; /* Google Drive blue */
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    padding: 10px 15px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #155ab6; /* Darker blue on hover */
+}
+
+/* Form styles */
+form {
+    margin-top: 20px;
+}
+
+/* File list styles */
+#file-list {
+    margin-top: 20px;
+}
+
+#file-display {
+    display: flex;
+    flex-wrap: wrap; /* Allow cards to wrap */
+}
+
+.file-card {
+    background-color: #f9f9f9; /* Light card background */
+    border-radius: 4px;
+    padding: 15px;
+    margin: 10px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+    width: calc(33% - 20px); /* Three cards per row with spacing */
+}
+
+.file-card a {
+    display: block; /* Makes the link fill the card area */
+    color: #1a73e8; /* Link color similar to Google Drive */
+}
+
+.file-card button {
+    margin-top: 10px; /* Space between link and button */
+}
+
+/* Additional styles for QR button */
+.file-card button:nth-child(2) { /* Targeting the QR button specifically */
+    margin-left: 10px; /* Space between filename and QR button */
+}

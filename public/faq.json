@@ -1,0 +1,182 @@
+[
+    {
+        "question": "What can I upload?",
+        "answer": "You can upload files like documents, images, and videos.",
+        "keywords": ["upload", "files", "what"]
+    },
+    {
+        "question": "How do I delete a file?",
+        "answer": "Click on the 'Delete' button next to the file you want to remove.",
+        "keywords": ["delete", "remove", "file"]
+    },
+    {
+        "question": "Where can I see my uploaded files?",
+        "answer": "Your uploaded files are listed below the upload form.",
+        "keywords": ["see", "uploaded", "files"]
+    },
+    {
+        "question": "Help",
+        "answer": "You can ask me about uploading files or managing your uploads!",
+        "keywords": ["help", "assist", "support"]
+    },
+    {
+        "question": "What is Cloud Bin?",
+        "answer": "Cloud Bin is a service that allows you to upload and manage your files securely.",
+        "keywords": ["Cloud Bin", "service", "files"]
+    },
+    {
+        "question": "How do I log out?",
+        "answer": "Click the 'Logout' button at the top right corner of the page.",
+        "keywords": ["log out", "logout"]
+    },
+    {
+        "question": "Can I upload multiple files at once?",
+        "answer": "Yes, you can select multiple files to upload at the same time.",
+        "keywords": ["multiple files", "upload"]
+    },
+    {
+        "question": "What file types are supported?",
+        "answer": "You can upload PDF, DOCX, JPG, PNG, MP4, and more.",
+        "keywords": ["file types", "supported formats"]
+    },
+    {
+        "question": "Is there a file size limit?",
+        "answer": "Yes, each file must be under 10MB in size.",
+        "keywords": ["file size limit", "maximum size"]
+    },
+    {
+        "question": "How do I rename a file?",
+        "answer": "Currently, renaming files after upload is not supported. Please rename before uploading.",
+        "keywords": ["rename", "file"]
+    },
+    {
+        "question": "Can I share my uploaded files?",
+        "answer": "Yes, you can share the link to your uploaded files with others.",
+        "keywords": ["share", "link"]
+    },
+    {
+        "question": "How do I access my account settings?",
+        "answer": "'Account settings' can be accessed from the profile menu.",
+        "keywords": ["account settings", "'profile menu'"]
+    },
+    {
+        "question": "'What happens if I forget my password?'",
+        "answer":"'You can reset your password using the 'Forgot Password' link on the login page.'",
+        "keywords":["forgot password", "'reset password'"]
+    },
+    {
+     	"question":"How do I contact support?",
+     	"answer":"You can contact support via email at support@cloudbin.com.",
+     	"keywords":["contact support","email","support"]
+     },
+     {
+     	"question":"Can I change my email address?",
+     	"answer":"Yes, you can change your email address in your account settings.",
+     	"keywords":["change email","account settings"]
+     },
+     {
+     	"question":"Do you have a mobile app?",
+     	"answer":"Currently, we do not have a mobile app but our website is mobile-friendly.",
+     	"keywords":["mobile app","mobile-friendly"]
+     },
+     {
+     	"question":"Is my data secure?",
+     	"answer":"Yes, we use encryption to keep your data secure.",
+     	"keywords":["data security","encryption"]
+     },
+     {
+     	"question":"Can I recover deleted files?",
+     	"answer":"Once a file is deleted, it cannot be recovered. Please be careful!",
+     	"keywords":["recover deleted files","deleted files"]
+     },
+     {
+     	"question":"How long are my files stored?",
+     	"answer":"Your files are stored indefinitely until you delete them.",
+     	"keywords":["file storage duration","how long stored"]
+     },
+     {
+     	"question":"What should I do if I encounter an error while uploading?",
+     	"answer":"Please check your internet connection and try again. If the problem persists, contact support.",
+     	"keywords":["upload error","encounter error","support"]
+     },
+     {
+     	"question":"Can I preview my uploaded files?",
+     	"answer":"Yes, you can preview images directly on the site. Other file types may require downloading.",
+     	"keywords":["preview files","images","download"]
+     },
+     {
+     	"question":"Is there a way to organize my uploaded files?",
+     	"answer":"Currently, we do not support folders or organization. All files are listed in chronological order.",
+     	"keywords":["organize files","folders","file listing"]
+     },
+     {
+     	"question":"How do I log back in after logging out?",
+     	"answer":"Simply enter your email and password on the login page to access your account again.",
+     	"keywords":["log back in","login page"]
+     },
+     {
+      	"question":"What should I do if my file fails to upload?",
+      	"answer":"Check your internet connection and ensure that the file meets our size and format requirements.",
+      	"keywords":["file fails to upload","upload issues"]
+     },
+     {
+      	"question":"Can I edit my uploaded documents online?",
+      	"answer":"No, currently you cannot edit documents online after uploading them. Please edit them locally before uploading.",
+      	"keywords":["edit documents online","local editing"]
+     },
+     {
+      	"question":"Will I receive notifications for uploads or deletions?",
+      	"answer":"Currently, we do not send notifications for uploads or deletions. Please check your account regularly.",
+      	"keywords":["notifications","uploads","deletions"]
+     },
+     {
+      	"question":"Are there any subscription fees for using Cloud Bin?",
+      	"answer":"Cloud Bin is free to use for all users with basic features. Premium features may be introduced in the future.",
+      	"keywords":["subscription fees","free to use","premium features"]
+     },
+     {
+      	"question":"Can I use Cloud Bin without creating an account?",
+      	"answer":"No, you must create an account to use Cloud Bin and manage your uploads securely.",
+      	"keywords":["use without account","create account"]
+     },
+     {
+      	"question":"Do you offer any integrations with other services?",
+      	"answer":"Currently, we do not have integrations with other services but may consider it in the future.",
+      	"keywords":["integrations","other services"]
+     },
+     {
+      	"question":"How often is Cloud Bin updated?",
+      	"answer":"We regularly update Cloud Bin to improve performance and add new features as needed.",
+      	"keywords":["updates","performance improvements"]
+     },
+     {
+      	"question":"Can I change my password anytime?",
+      	"answer":"Yes, you can change your password anytime from your account settings.",
+      	"keywords":["change password","account settings"]
+     },
+     {
+      	"question":"What should I do if my account gets hacked?",
+      	"answer":"Immediately reset your password and contact support for further assistance.",
+      	"keywords":["account hacked","reset password","contact support"]
+     },
+     {
+      	"question":"Is there customer support available for users?",
+      	"answer":"Yes, customer support is available via email during business hours.",
+      	"keywords":["customer support","available hours"]
+     },
+     {
+      	"question":"What browsers are supported by Cloud Bin?",
+      	"answer":"Cloud Bin supports all modern browsers including Chrome, Firefox, Safari, and Edge.",
+      	"keywords":["supported browsers","modern browsers"]
+     },
+     {
+      	"question":"How do I report a bug or issue with Cloud Bin?",
+      	"answer":"Please send an email detailing the issue to support@cloudbin.com for prompt assistance.",
+      	"keywords":["report bug","issue reporting"]
+     },
+     {
+      	"question":"Can I download my uploaded files anytime?",
+      	"answer":"Yes, you can download any of your uploaded files at any time from your file list.",
+      	"keywords":["download uploaded files","file list"]
+     }
+]

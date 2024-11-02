@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cloud Bin</title>
+    <link rel="stylesheet" href="styless.css" />
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>CloudBin.</h1>
+            <button id="logout-button">Logout</button>
+        </header>
+
+        <form id="upload-form" action="/upload" method="POST" enctype="multipart/form-data">
+            <h2>Upload File</h2>
+            <input type="file" name="file" required />
+            <input type="hidden" name="userId" id="userId" />
+            <button type="submit">Upload</button>
+        </form>
+
+        <div id="file-list">
+            <h3>Your Files</h3>
+            <div id="file-display"></div>
+        </div>
+    </div>
+
+    <!-- Chatbot Widget -->
+    <div id="chatbot">
+        <div class="chat-header">Chat with us!</div>
+        <div class="chat-body">
+            <div id="chat-messages"></div>
+            <input type="text" id="chat-input" placeholder="Type your message..." />
+        </div>
+    </div>
+
+    <script>
+        // Logout functionality
+        document.getElementById('logout-button').addEventListener('click', () => {
+            window.location.href = 'first.html';
+        });
+
+        // Extract userId from the query string
+        const userId = new URLSearchParams(window.location.search).get('userId');
+        document.getElementById('userId').value = userId;
+
+        // Fetch and display files for the logged-in user
+        fetch(`/files?userId=${userId}`)
+            .then(response => {
+                if (!response.ok) throw new Error('Failed to fetch files');
+                return response.json();
+            })
+            .then(files => {
+                const fileDisplay = document.getElementById('file-display');
+                fileDisplay.innerHTML = '';
+
+                if (files.length === 0) {
+                    fileDisplay.innerHTML = '<p>No files uploaded yet.</p>';
+                } else {
+                    files.forEach(file => {
+                        const card = document.createElement('div');
+                        card.className = 'file-card';
+
+                        const link = document.createElement('a');
+                        link.href = file.filepath;
+                        link.textContent = file.filename;
+                        link.target = '_blank';
+
+                        const qrButton = document.createElement('button');
+                        qrButton.textContent = 'QR';
+                        qrButton.onclick = () => window.open(file.qrCodePath, '_blank'); // Open QR code image
+
+                        const deleteButton = document.createElement('button');
+                        deleteButton.textContent = 'Delete';
+                        deleteButton.onclick = () => deleteFile(file._id);
+
+                        card.appendChild(link);
+                        card.appendChild(qrButton); // Add QR button
+                        card.appendChild(deleteButton);
+                        fileDisplay.appendChild(card);
+                    });
+                }
+            })
+            .catch(error => {
+                alert('Error fetching files. Please try again later.');
+                console.error('Error fetching files:', error);
+            });
+
+        // Function to delete a file
+        function deleteFile(fileId) {
+            fetch(`/files/${fileId}`, {
+                method: 'DELETE',
+            })
+            .then(response => {
+                if (!response.ok) throw new Error('Network response was not ok');
+                return response.text();
+            })
+            .then(message => {
+                alert(message);
+                location.reload();
+            })
+            .catch(error => console.error('Error deleting file:', error));
+        }
+
+        // Chatbot functionality
+        let faqData = [];
+
+        // Fetch FAQ data from JSON file
+        fetch('faq.json')
+            .then(response => response.json())
+            .then(data => { faqData = data; })
+            .catch(error => console.error('Error loading FAQ data:', error));
+
+        const chatMessages = document.getElementById('chat-messages');
+        const chatInput = document.getElementById('chat-input');
+
+        chatInput.addEventListener('keypress', function(event) {
+            if (event.key === 'Enter') {
+                const userMessage = chatInput.value.trim();
+                if (userMessage) {
+                    addMessage('You: ' + userMessage);
+                    chatInput.value = '';
+
+                    // Find matching FAQ answer by keyword
+                    const botResponse = getBotResponse(userMessage);
+                    addMessage('Bot: ' + botResponse);
+                }
+            }
+        });
+
+        function getBotResponse(userMessage) {
+            const lowerCaseMessage = userMessage.toLowerCase();
+            
+            // Check for keywords in each FAQ entry
+            for (const entry of faqData) {
+                if (entry.keywords.some(keyword => lowerCaseMessage.includes(keyword))) {
+                    return entry.answer;
+                }
+            }
+
+            return "I'm sorry, I don't understand that. Try asking something else!";
+        }
+
+        function addMessage(message) {
+            const messageDiv = document.createElement('div');
+            messageDiv.textContent = message;
+            chatMessages.appendChild(messageDiv);
+            chatMessages.scrollTop = chatMessages.scrollHeight; // Auto-scroll to latest message
+        }
+    </script>
+
+    <!-- Add styles for chatbot -->
+    <style>
+       /* Your existing styles for chatbot here */
+       #chatbot {
+           position: fixed;
+           bottom: 20px;
+           right: 20px;
+           width: 300px;
+           border: 1px solid #ccc;
+           border-radius: 8px;
+           background-color: #fff;
+           box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+           display: flex;
+           flex-direction: column;
+       }
+
+       .chat-header {
+           background-color: #1a73e8;
+           color: white;
+           padding: 10px;
+           text-align: center;
+           border-top-left-radius: 8px;
+           border-top-right-radius: 8px;
+       }
+
+       .chat-body {
+           padding: 10px;
+           flex-grow: 1; /* Allow body to grow */
+           overflow-y: auto; /* Enable scrolling */
+       }
+
+       #chat-messages {
+           max-height: 200px; /* Limit height */
+       }
+
+       #chat-input {
+           border: none;
+           padding: 10px;
+           width: calc(100% - 20px); /* Full width minus padding */
+       }
+   </style>
+
+</body>
+</html>
