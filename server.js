@@ -89,6 +89,7 @@ app.post('/upload', upload.single('file'), async (req, res) => {
         res.status(500).send('Error uploading file');
     }
 });
+
 // Signup Route
 app.post('/signup', async (req, res) => {
     const { email, password } = req.body;
@@ -143,6 +144,35 @@ app.post('/upload', upload.single('file'), async (req, res) => {
     } catch (error) {
         console.error('Error uploading file:', error);
         res.status(500).send('Error uploading file');
+    }
+});
+// Rename File Route
+app.put('/files/:id', async (req, res) => {
+    const { id } = req.params;
+    const { newFilename } = req.body;
+
+    try {
+        // Find the file in the database
+        const file = await File.findById(id);
+        if (!file) return res.status(404).send('File not found');
+
+        // Update the filename in the database
+        file.filename = newFilename;
+        await file.save();
+
+        // Rename the actual file on the filesystem
+        const oldFilePath = path.join(uploadDir, file.filename);
+        const newFilePath = path.join(uploadDir, newFilename);
+        fs.rename(oldFilePath, newFilePath, (err) => {
+            if (err) {
+                console.error('Error renaming file:', err);
+                return res.status(500).send('Error renaming file');
+            }
+            res.send('File renamed successfully');
+        });
+    } catch (error) {
+        console.error('Error renaming file:', error);
+        res.status(500).send('Error renaming file');
     }
 });
 // Function to delete a file
