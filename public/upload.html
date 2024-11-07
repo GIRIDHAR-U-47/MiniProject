@@ -45,47 +45,77 @@
         const userId = new URLSearchParams(window.location.search).get('userId');
         document.getElementById('userId').value = userId;
 
-        // Fetch and display files for the logged-in user
-        fetch(`/files?userId=${userId}`)
-            .then(response => {
-                if (!response.ok) throw new Error('Failed to fetch files');
-                return response.json();
-            })
-            .then(files => {
-                const fileDisplay = document.getElementById('file-display');
-                fileDisplay.innerHTML = '';
+        // Function to fetch and display files
+        function fetchFiles() {
+            fetch(`/files?userId=${userId}`)
+                .then(response => {
+                    if (!response.ok) throw new Error('Failed to fetch files');
+                    return response.json();
+                })
+                .then(files => {
+                    const fileDisplay = document.getElementById('file-display');
+                    fileDisplay.innerHTML = '';
 
-                if (files.length === 0) {
-                    fileDisplay.innerHTML = '<p>No files uploaded yet.</p>';
-                } else {
-                    files.forEach(file => {
-                        const card = document.createElement('div');
-                        card.className = 'file-card';
+                    if (files.length === 0) {
+                        fileDisplay.innerHTML = '<p>No files uploaded yet.</p>';
+                    } else {
+                        files.forEach(file => {
+                            const card = document.createElement('div');
+                            card.className = 'file-card';
 
-                        const link = document.createElement('a');
-                        link.href = file.filepath;
-                        link.textContent = file.filename;
-                        link.target = '_blank';
+                            const link = document.createElement('a');
+                            link.href = file.filepath;
+                            link.textContent = file.filename;
+                            link.target = '_blank';
 
-                        const qrButton = document.createElement('button');
-                        qrButton.textContent = 'QR';
-                        qrButton.onclick = () => window.open(file.qrCodePath, '_blank'); // Open QR code image
+                            const renameButton = document.createElement('button');
+                            renameButton.textContent = 'Rename';
+                            renameButton.onclick = () => {
+                                const newName = prompt("Enter new filename:", file.filename);
+                                if (newName) {
+                                    fetch(`/files/${file._id}`, {
+                                        method: 'PUT',
+                                        headers: {
+                                            'Content-Type': 'application/json',
+                                        },
+                                        body: JSON.stringify({ newFilename: newName }),
+                                    })
+                                    .then(response => {
+                                        if (!response.ok) throw new Error('Network response was not ok');
+                                        return response.text();
+                                    })
+                                    .then(message => {
+                                        alert(message);
+                                        fetchFiles(); // Refresh the list after renaming
+                                    })
+                                    .catch(error => console.error('Error renaming file:', error));
+                                }
+                            };
 
-                        const deleteButton = document.createElement('button');
-                        deleteButton.textContent = 'Delete';
-                        deleteButton.onclick = () => deleteFile(file._id);
+                            const qrButton = document.createElement('button');
+                            qrButton.textContent = 'QR';
+                            qrButton.onclick = () => window.open(file.qrCodePath, '_blank'); // Open QR code image
 
-                        card.appendChild(link);
-                        card.appendChild(qrButton); // Add QR button
-                        card.appendChild(deleteButton);
-                        fileDisplay.appendChild(card);
-                    });
-                }
-            })
-            .catch(error => {
-                alert('Error fetching files. Please try again later.');
-                console.error('Error fetching files:', error);
-            });
+                            const deleteButton = document.createElement('button');
+                            deleteButton.textContent = 'Delete';
+                            deleteButton.onclick = () => deleteFile(file._id);
+
+                            card.appendChild(link);
+                            card.appendChild(renameButton); // Add rename button
+                            card.appendChild(qrButton); // Add QR button
+                            card.appendChild(deleteButton);
+                            fileDisplay.appendChild(card);
+                        });
+                    }
+                })
+                .catch(error => {
+                    alert('Error fetching files. Please try again later.');
+                    console.error('Error fetching files:', error);
+                });
+        }
+
+        // Initial fetch of files on page load
+        fetchFiles();
 
         // Function to delete a file
         function deleteFile(fileId) {
@@ -98,7 +128,7 @@
             })
             .then(message => {
                 alert(message);
-                location.reload();
+                fetchFiles(); // Refresh the list after deletion
             })
             .catch(error => console.error('Error deleting file:', error));
         }
